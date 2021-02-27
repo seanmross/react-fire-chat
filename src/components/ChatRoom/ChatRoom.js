@@ -7,8 +7,10 @@ const ChatRoom = ({ messages, user, sendMessage }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    sendMessage(newMessage);
-    setNewMessage('');
+    if (newMessage) {
+      sendMessage(newMessage);
+      setNewMessage('');
+    }
   }
 
   return (
@@ -18,9 +20,14 @@ const ChatRoom = ({ messages, user, sendMessage }) => {
       </main>
       <form onSubmit={onSubmit}>
         <input type="text" value={newMessage} onChange={e => setNewMessage(e.target.value)} />
-        <button type="submit">
+        {/* <button type="submit">
           <span className="emoji">🚀</span>
-        </button>
+        </button> */}
+        <div className="submit-btn">
+          <button className="ui icon button">
+            <i className="big rocketchat icon"></i>
+          </button>
+        </div>
       </form>
     </div>
   );

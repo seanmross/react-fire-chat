@@ -3,13 +3,23 @@
   align-items: center;
   margin: 6px 0;
   &__avatar {
-    margin: 5px;
+    display: flex;
+    margin: 6px;
+    align-items: center;
   }
   img {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
   }
+}
+
+.chat-message.received img {
+  margin-right: 3.5px;
+}
+
+.chat-message.sent img {
+  margin-left: 3.5px;
 }
 
 .sent {
@@ -27,7 +37,6 @@ p {
 
 .sent p {
   background: #0b93f6;
-  align-self: flex-end;
 }
 
 .received p {
