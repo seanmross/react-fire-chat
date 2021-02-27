@@ -44,7 +44,7 @@ const App = () => {
 
   // ChatRoom
   const collection = firestore.collection('messages');
-  const query = collection.orderBy('createdAt').limit(25);
+  const query = collection.orderBy('createdAt').limitToLast(25);
   const [messages] = useCollectionData(query, {idField: 'id'});
 
   const sendMessage = async (text) => {
@@ -55,7 +55,6 @@ const App = () => {
       uid,
       photoURL
     });
-    
   }
 
   return (
