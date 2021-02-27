@@ -4,7 +4,7 @@ import './TopBar.scss';
 
 const TopBar = ({ user, onSignOut }) => {
   const animations = StyleSheet.create({
-    pulse: {
+    zoomIn: {
       animationName: zoomIn,
       animationDuration: '1s'
     }
@@ -12,9 +12,9 @@ const TopBar = ({ user, onSignOut }) => {
 
   return (
     <header className="top-bar">
-      <h1 className={css(animations.pulse)}>⚛️ 🔥 💬 </h1>
+      <h1 className={css(animations.zoomIn)}>⚛️ 🔥 💬 </h1>
       {user && (
-        <div className={`top-bar__right ${css(animations.pulse)}`}>
+        <div className={`top-bar__right ${css(animations.zoomIn)}`}>
           <img src={user.photoURL} alt=""/>
           <button className="ui button" onClick={onSignOut}>
             Sign out

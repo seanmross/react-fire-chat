@@ -2,6 +2,7 @@ import React from 'react';
 import Landing from '../Landing/Landing';
 import TopBar from '../TopBar/TopBar';
 import Spinner from '../Spinner/Spinner';
+import ChatRoom from '../ChatRoom/ChatRoom';
 import './App.scss';
 
 // firebase
@@ -11,6 +12,7 @@ import 'firebase/auth';
 
 // react-firebase-hooks
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 // firebase config
 if (!firebase.apps.length) {
@@ -28,30 +30,44 @@ if (!firebase.apps.length) {
 }
 
 const auth = firebase.auth();
-// const firestore = firebase.firestore();
+const firestore = firebase.firestore();
 
 const App = () => {
+  // auth
   const [user, loading, error] = useAuthState(auth);
-
+  
+  // sign in
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
+  }
+
+  // ChatRoom
+  const collection = firestore.collection('messages');
+  const query = collection.orderBy('createdAt').limit(25);
+  const [messages] = useCollectionData(query, {idField: 'id'});
+
+  const sendMessage = async (text) => {
+    const { uid, photoURL } = auth.currentUser;
+    await collection.add({
+      text,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+      photoURL
+    });
+    
   }
 
   return (
     <div className="app">
       <TopBar user={auth.currentUser} onSignOut={() => auth.signOut()} />
       <section>
-        {loading ? <Spinner /> : error ? null : user ? <ChatRoom /> : <Landing onSignIn={signInWithGoogle} />}
+        {loading ? <Spinner /> : 
+          error ? null : 
+            user ? <ChatRoom messages={messages} user={auth.currentUser} sendMessage={sendMessage} /> : 
+              <Landing onSignIn={signInWithGoogle} />}
       </section>
     </div>
   );
 }
-
-const ChatRoom = () => {
-  return (
-    <div>Chat room</div>
-  );
-}
-
 export default App;
