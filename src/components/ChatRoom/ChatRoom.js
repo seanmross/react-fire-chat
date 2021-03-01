@@ -27,8 +27,8 @@ const ChatRoom = ({ messages, user, sendMessage }) => {
       </main>
       <form onSubmit={onSubmit}>
         <input type="text" value={newMessage} onChange={e => setNewMessage(e.target.value)} autoFocus />
-        <div className="submit-btn">
-          <button className="ui icon button">
+        <div className="submit-btn-container">
+          <button className="ui icon button" disabled={!newMessage}>
             <i className="big rocketchat icon"></i>
           </button>
         </div>
