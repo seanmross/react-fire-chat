@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Landing from '../Landing/Landing';
 import TopBar from '../TopBar/TopBar';
 import Spinner from '../Spinner/Spinner';
@@ -48,12 +48,13 @@ const App = () => {
   const [messages] = useCollectionData(query, {idField: 'id'});
 
   const sendMessage = async (text) => {
-    const { uid, photoURL } = auth.currentUser;
+    const { uid, photoURL, displayName } = auth.currentUser;
     await collection.add({
       text,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
-      photoURL
+      photoURL,
+      author: displayName
     });
   }
 
