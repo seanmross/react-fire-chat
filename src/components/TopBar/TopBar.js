@@ -1,5 +1,5 @@
-import { StyleSheet, css } from 'aphrodite';
-import { zoomIn } from 'react-animations';
+// import { StyleSheet, css } from 'aphrodite';
+// import { zoomIn } from 'react-animations';
 import './TopBar.scss';
 
 const TopBar = ({ user, onSignOut }) => {

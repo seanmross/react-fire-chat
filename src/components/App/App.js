@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Landing from '../Landing/Landing';
 import TopBar from '../TopBar/TopBar';
 import Spinner from '../Spinner/Spinner';
